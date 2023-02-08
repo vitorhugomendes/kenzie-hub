@@ -18,4 +18,11 @@ export const GlobalStyle = createGlobalStyle`
     --font-size-16px: 1rem;
     --font-size-12px: .75rem;
 }
+
+body {
+    max-width: 1600px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--grey-4)
+}
 `;

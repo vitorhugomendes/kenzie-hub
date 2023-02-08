@@ -7,6 +7,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />}></Route>
+      <Route path="/register" element={<Register />}></Route>
     </Routes>
   );
 }
