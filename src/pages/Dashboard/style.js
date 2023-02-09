@@ -3,26 +3,26 @@ import styled from "styled-components";
 export const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
-  padding: 1rem;
+
   section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 1rem 0;
 
     width: 100%;
-    max-width: 370px;
+    border-top: 2px solid var(--grey-3);
+    border-bottom: 2px solid var(--grey-3);
+  }
 
-    background: var(--grey-3);
-    box-shadow: 0px 3.20867px 32.0867px -8.02168px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   h2 {
-    margin-top: 20px;
-    align-self: center;
     font-weight: 700;
     font-size: var(--font-size-16px);
     line-height: 156%;
@@ -31,12 +31,29 @@ export const StyledMain = styled.main`
   }
 
   p {
-    align-self: center;
-
     font-weight: 600;
     font-size: var(--font-size-12px);
     line-height: 150%;
 
     color: var(--grey-1);
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: var(--font-size-16px);
+    line-height: 152%;
+
+    color: #ffffff;
+  }
+
+  @media (min-width: 750px) {
+    section > div {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    div {
+      margin: 0 100px;
+    }
   }
 `;

@@ -16,7 +16,8 @@ export const StyledForm = styled.form`
     color: var(--grey-0);
   }
 
-  input {
+  input,
+  select {
     font-weight: 400;
     font-size: var(--font-size-16px);
     line-height: 163%;
@@ -30,21 +31,13 @@ export const StyledForm = styled.form`
     border-radius: 4px;
   }
 
-  button {
-    font-weight: 500;
-    font-size: var(--font-size-16px);
-    line-height: 165%;
+  span {
+    font-weight: 400;
+    font-size: var(--font-size-12px);
+    line-height: 0;
 
-    padding: 0 22px;
+    margin-bottom: 10px;
 
-    color: #ffffff;
-    background: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    border-radius: 4px;
-  }
-
-  button:hover {
-    background: var(--color-primary-focus);
-    border: 1px solid var(--color-primary-focus);
+    color: var(--negative);
   }
 `;

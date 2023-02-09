@@ -1,5 +1,9 @@
 import { StyledButton } from "./style";
 
-export function Button({ text, onClickFunction }) {
-  return <StyledButton onClick={onClickFunction}>{text}</StyledButton>;
+export function Button({ type, text, onClickFunction }) {
+  return (
+    <StyledButton type={type} onClick={onClickFunction}>
+      {text}
+    </StyledButton>
+  );
 }
