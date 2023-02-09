@@ -63,7 +63,6 @@ export function Login() {
     }
   }
 
-  console.log(errors);
   return (
     <>
       <Header></Header>

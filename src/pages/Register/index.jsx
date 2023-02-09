@@ -34,7 +34,6 @@ export function Register() {
       toast.error(error.response.data.message);
     }
   }
-  console.log(errors);
 
   return (
     <>
