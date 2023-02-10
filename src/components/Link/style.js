@@ -1,11 +1,14 @@
 import styled, { css } from "styled-components";
+import { Link as LinkRouter } from "react-router-dom";
 
-export const StyledButton = styled.button`
+export const StyledLink = styled(LinkRouter)`
   font-weight: 500;
   font-size: var(--font-size-16px);
   line-height: 165%;
   padding: 10px 22px;
   color: #ffffff;
+  text-decoration: none;
+  text-align: center;
 
   background-color: var(--grey-3);
   border: 1px solid var(--grey-3);
@@ -16,16 +19,13 @@ export const StyledButton = styled.button`
     border: 1px solid var(--grey-2);
   }
 
-  ${({ type }) => {
-    if (type) {
+  ${({ children }) => {
+    if (children == "Cadastre-se") {
       return css`
-        background: var(--color-primary);
-        border: 1px solid var(--color-primary);
+        margin: 0 1rem;
 
-        :hover {
-          background: var(--color-primary-focus);
-          border: 1px solid var(--color-primary-focus);
-        }
+        background: var(--grey-1);
+        border: 1px solid var(--grey-1);
       `;
     }
   }}

@@ -7,6 +7,7 @@ import { StyledMain } from "./style";
 import { Header } from "../../components/Header";
 import { Form } from "../../components/Form";
 import { Button } from "../../components/Button";
+import { Link } from "../../components/Link";
 import { formSchema } from "./validations";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
@@ -55,7 +56,7 @@ export function Login() {
         "KenzieHub@USERID",
         JSON.stringify(response.data.user.id)
       );
-      // toDashboardPage();
+      toDashboardPage();
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -91,15 +92,10 @@ export function Login() {
                 {...register("password")}
               />
               <span>{errors?.password?.message}</span>
-              <Button type="submit" text="Entrar"></Button>
+              <Button type="submit">Entrar</Button>
             </Form>
             <p>Ainda não possuí uma conta?</p>
-            <Button
-              text="Cadastre-se"
-              onClickFunction={() => {
-                toRegisterPage();
-              }}
-            ></Button>
+            <Link to={"/register"}>Cadastre-se</Link>
           </section>
         )}
       </StyledMain>

@@ -46,11 +46,12 @@ export function Dashboard() {
     <>
       <Header>
         <Button
-          text="Sair"
           onClickFunction={() => {
             userLogout();
           }}
-        ></Button>
+        >
+          Sair
+        </Button>
       </Header>
       <StyledMain>
         {loading ? (

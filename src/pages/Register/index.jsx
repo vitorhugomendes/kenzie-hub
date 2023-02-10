@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
+import { Link } from "../../components/Link";
 import { StyledMain } from "./style";
 import { Form } from "../../components/Form";
 import { formSchema } from "./validations";
@@ -38,12 +39,7 @@ export function Register() {
   return (
     <>
       <Header>
-        <Button
-          text={"Voltar"}
-          onClickFunction={() => {
-            toLoginPage();
-          }}
-        ></Button>
+        <Link to={"/"}>Voltar</Link>
       </Header>
       <StyledMain>
         <section>
