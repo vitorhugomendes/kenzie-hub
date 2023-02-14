@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../providers/UserContext";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "../../components/Button";
@@ -8,28 +8,20 @@ import { api } from "../../services/api";
 import { StyledMain } from "./style";
 
 export function Dashboard() {
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(
-    localStorage.getItem("KenzieHub@USERID") || null
-  );
-  const [userInfo, setUserInfo] = useState({});
+  const { loading, setLoading, user, setUser, userLogout, userID } =
+    useContext(UserContext);
 
-  const navigate = useNavigate();
-
-  function userLogout() {
-    window.localStorage.clear();
-    navigate("/");
-  }
+  const userToken = JSON.parse(localStorage.getItem("KenzieHub@TOKEN")) || null;
 
   useEffect(() => {
-    if (!user) {
+    if (!userID) {
       userLogout();
     } else {
       async function getUser() {
         try {
           setLoading(true);
-          const response = await api.get(`/users/${JSON.parse(user)}`);
-          setUserInfo(response.data);
+          const response = await api.get(`/users/${userID}`);
+          setUser(response.data);
         } catch (error) {
           toast.error(error.response.data.message);
         } finally {
@@ -39,8 +31,6 @@ export function Dashboard() {
       getUser();
     }
   }, []);
-
-  const { name, course_module } = userInfo;
 
   return (
     <>
@@ -62,8 +52,8 @@ export function Dashboard() {
           <>
             <section>
               <div>
-                <h2>{name}</h2>
-                <p>{course_module}</p>
+                <h2>{user?.name}</h2>
+                <p>{user?.course_module}</p>
               </div>
             </section>
 

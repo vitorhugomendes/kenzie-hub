@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { api } from "../../services/api";
+import { UserContext } from "../../providers/UserContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,14 +11,9 @@ import { Link } from "../../components/Link";
 import { StyledMain } from "./style";
 import { Form } from "../../components/Form";
 import { formSchema } from "./validations";
-import { api } from "../../services/api";
 
 export function Register() {
-  const navigate = useNavigate();
-
-  function toLoginPage() {
-    navigate("/");
-  }
+  const { navigate } = useContext(UserContext);
 
   const {
     register,
@@ -30,7 +27,7 @@ export function Register() {
     try {
       const response = await api.post("/users", data);
       toast("Usuário cadastrado com sucesso");
-      toLoginPage();
+      navigate("/");
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -108,7 +105,7 @@ export function Register() {
               <option value="Quarto módulo">Quarto módulo</option>
             </select>
 
-            <Button type={"submit"} text="Cadastrar"></Button>
+            <Button type={"submit"}>Cadastrar</Button>
           </Form>
         </section>
       </StyledMain>

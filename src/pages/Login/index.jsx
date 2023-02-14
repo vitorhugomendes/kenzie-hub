@@ -1,31 +1,21 @@
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../providers/UserContext";
+import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { StyledMain } from "./style";
 import { Header } from "../../components/Header";
 import { Form } from "../../components/Form";
+import { formSchema } from "./validations";
 import { Button } from "../../components/Button";
 import { Link } from "../../components/Link";
-import { formSchema } from "./validations";
-import { api } from "../../services/api";
-import { useEffect, useState } from "react";
 
 export function Login() {
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(
-    localStorage.getItem("KenzieHub@USERID") || null
-  );
-  const navigate = useNavigate();
+  const { loading, setLoading, setUser, userID, navigate } =
+    useContext(UserContext);
 
-  function toRegisterPage() {
-    navigate("/register");
-  }
-
-  function toDashboardPage() {
-    navigate("/dashboard");
-  }
   const {
     register,
     handleSubmit,
@@ -35,12 +25,9 @@ export function Login() {
   });
 
   useEffect(() => {
-    function checkUser() {
-      if (user) {
-        toDashboardPage();
-      }
+    if (userID) {
+      navigate("/dashboard");
     }
-    checkUser();
   });
 
   async function userLogin(data) {
@@ -56,7 +43,6 @@ export function Login() {
         "KenzieHub@USERID",
         JSON.stringify(response.data.user.id)
       );
-      toDashboardPage();
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
