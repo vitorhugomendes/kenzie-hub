@@ -10,7 +10,7 @@ export const formSchema = yup.object({
     .matches(/[A-Z]/, "Deve conter ao menos 1 letra maiúscula")
     .matches(/(\W|_)/, "Deve conter ao menos 1 caracter especial")
     .matches(/.{8,}/, "Deve conter no mínimo 8 caracteres"),
-  passwordConfirmation: yup
+  confirmPassword: yup
     .string()
     .oneOf([yup.ref("password")], "Confirmação de senha deve ser igual a senha")
     .required("Confirmação de senha é obrigatória"),

@@ -8,29 +8,7 @@ import { api } from "../../services/api";
 import { StyledMain } from "./style";
 
 export function Dashboard() {
-  const { loading, setLoading, user, setUser, userLogout, userID } =
-    useContext(UserContext);
-
-  const userToken = JSON.parse(localStorage.getItem("KenzieHub@TOKEN")) || null;
-
-  useEffect(() => {
-    if (!userID) {
-      userLogout();
-    } else {
-      async function getUser() {
-        try {
-          setLoading(true);
-          const response = await api.get(`/users/${userID}`);
-          setUser(response.data);
-        } catch (error) {
-          toast.error(error.response.data.message);
-        } finally {
-          setLoading(false);
-        }
-      }
-      getUser();
-    }
-  }, []);
+  const { loading, user, userLogout } = useContext(UserContext);
 
   return (
     <>

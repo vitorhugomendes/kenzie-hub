@@ -11,6 +11,7 @@ import { Link } from "../../components/Link";
 import { StyledMain } from "./style";
 import { Form } from "../../components/Form";
 import { formSchema } from "./validations";
+import { Input } from "../../components/Input";
 
 export function Register() {
   const { navigate } = useContext(UserContext);
@@ -43,59 +44,58 @@ export function Register() {
           <h2>Crie sua conta</h2>
           <p>Rápido e grátis, vamos nessa</p>
           <Form onSubmitFunction={handleSubmit(userRegister)}>
-            <label htmlFor="name">Nome</label>
-            <input
-              type="text"
+            <Input
+              label="Nome"
               id="name"
+              type="text"
+              register={register}
               placeholder="Digite aqui seu nome"
-              {...register("name")}
-            />
-            <span>{errors?.name?.message}</span>
-
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
+              error={errors?.name?.message}
+            ></Input>
+            <Input
+              label="Email"
               id="email"
+              type="email"
+              register={register}
               placeholder="Digite aqui seu email"
-              {...register("email")}
-            />
-            <span>{errors?.email?.message}</span>
+              error={errors?.email?.message}
+            ></Input>
 
-            <label htmlFor="password">Senha</label>
-            <input
-              type="password"
+            <Input
+              label="Senha"
               id="password"
-              placeholder="Digite aqui sua senha"
-              {...register("password")}
-            />
-            <span>{errors?.password?.message}</span>
-
-            <label htmlFor="confirmPassword">Confirmar senha</label>
-            <input
               type="password"
+              register={register}
+              placeholder="Digite aqui sua senha"
+              error={errors?.password?.message}
+            ></Input>
+
+            <Input
+              label="Confirmar senha"
               id="confirmPassword"
-              placeholder="Confirme a sua senha"
-              {...register("passwordConfirmation")}
-            />
-            <span>{errors?.passwordConfirmation?.message}</span>
+              type="password"
+              register={register}
+              placeholder="Confirme sua senha"
+              error={errors?.confirmPassword?.message}
+            ></Input>
 
-            <label htmlFor="bio">Bio</label>
-            <input
-              type="text"
+            <Input
+              label="Bio"
               id="bio"
-              placeholder="Fale sobre você"
-              {...register("bio")}
-            />
-            <span>{errors?.bio?.message}</span>
-
-            <label htmlFor="contact">Contato</label>
-            <input
               type="text"
+              register={register}
+              placeholder="Fale sobre você"
+              error={errors?.bio?.message}
+            ></Input>
+
+            <Input
+              label="Contato"
               id="contact"
+              type="text"
+              register={register}
               placeholder="Opção de contato"
-              {...register("contact")}
-            />
-            <span>{errors?.contact?.message}</span>
+              error={errors?.contact?.message}
+            ></Input>
 
             <label htmlFor="module">Selecionar Módulo</label>
             <select id="module" {...register("course_module")}>

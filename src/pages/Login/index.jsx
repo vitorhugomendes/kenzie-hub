@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../providers/UserContext";
 import { api } from "../../services/api";
 import { useForm } from "react-hook-form";
@@ -9,12 +9,12 @@ import { StyledMain } from "./style";
 import { Header } from "../../components/Header";
 import { Form } from "../../components/Form";
 import { formSchema } from "./validations";
+import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Link } from "../../components/Link";
 
 export function Login() {
-  const { loading, setLoading, setUser, userID, navigate } =
-    useContext(UserContext);
+  const { loading, setLoading, setUser, navigate } = useContext(UserContext);
 
   const {
     register,
@@ -22,12 +22,6 @@ export function Login() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
-  });
-
-  useEffect(() => {
-    if (userID) {
-      navigate("/dashboard");
-    }
   });
 
   async function userLogin(data) {
@@ -43,6 +37,7 @@ export function Login() {
         "KenzieHub@USERID",
         JSON.stringify(response.data.user.id)
       );
+      navigate("/dashboard");
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -62,22 +57,22 @@ export function Login() {
           <section>
             <h2>Login</h2>
             <Form onSubmitFunction={handleSubmit(userLogin)}>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
+              <Input
+                label="Email"
                 id="email"
+                type="email"
+                register={register}
                 placeholder="Digite seu e-mail"
-                {...register("email")}
-              />
-              <span>{errors.email?.message}</span>
-              <label htmlFor="password">Senha:</label>
-              <input
-                type="password"
+                error={errors?.email?.message}
+              ></Input>
+              <Input
+                label="Senha"
                 id="password"
-                placeholder="Digita sua senha"
-                {...register("password")}
-              />
-              <span>{errors?.password?.message}</span>
+                type="password"
+                register={register}
+                placeholder="Digite sua senha"
+                error={errors?.password?.message}
+              ></Input>
               <Button type="submit">Entrar</Button>
             </Form>
             <p>Ainda não possuí uma conta?</p>
