@@ -8,6 +8,8 @@ export const StyledButton = styled.button`
   padding: 10px 22px;
   color: #ffffff;
 
+  width: 100%;
+
   background-color: var(--grey-3);
   border: 1px solid var(--grey-3);
   border-radius: 4px;

@@ -9,7 +9,7 @@ export const StyledModal = styled.div`
   background: var(--grey-3);
   box-shadow: 0px 3.20867px 32.0867px -8.02168px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  div {
+  .modal-header__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +20,7 @@ export const StyledModal = styled.div`
     border-radius: 4px;
   }
 
-  div > h2 {
+  .modal-header__container > h2 {
     font-weight: 700;
     font-size: var(--font-size-14px);
     line-height: 171%;
@@ -28,7 +28,7 @@ export const StyledModal = styled.div`
     color: var(--grey-0);
   }
 
-  div > button {
+  .modal-header__container > button {
     font-weight: 600;
     font-size: 22px;
     background: none;
@@ -37,7 +37,15 @@ export const StyledModal = styled.div`
     color: var(--grey-1);
   }
 
-  div > button:hover {
+  .modal-header__container > button:hover {
     color: var(--grey-4);
+  }
+
+  .modal-buttons__container {
+    display: flex;
+  }
+
+  .modal-buttons__container > button {
+    width: 100%;
   }
 `;

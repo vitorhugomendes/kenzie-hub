@@ -10,6 +10,8 @@ export const TechContext = createContext({});
 export function TechProvider({ children }) {
   const { user, setUser, userToken, setLoading } = useContext(UserContext);
 
+  const [techID, setTechID] = useState("null");
+
   const [registerTechModal, setRegisterTechModal] = useState(false);
 
   const [editTechModal, setEditTechModal] = useState(false);
@@ -22,12 +24,14 @@ export function TechProvider({ children }) {
     setRegisterTechModal(false);
   }
 
-  function openEditTechModal() {
+  function openEditTechModal(id) {
     setEditTechModal(true);
+    setTechID(id);
   }
 
   function closeEditTechModal() {
-    setEditTechModal(false);
+    setEditTechModal(null);
+    setTechID(null);
   }
 
   async function techRegister(formData) {
@@ -58,6 +62,7 @@ export function TechProvider({ children }) {
       });
       toast.success("Tecnologia editada com sucesso");
       closeEditTechModal();
+      console.log(response);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -91,6 +96,7 @@ export function TechProvider({ children }) {
         registerTechModal,
         openRegisterTechModal,
         closeRegisterTechModal,
+        techID,
         editTechModal,
         openEditTechModal,
         closeEditTechModal,

@@ -7,19 +7,23 @@ import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterTechModal } from "../../components/RegisterTechModal";
-import { Form } from "../../components/Form";
+import { Modal } from "../../components/Modal";
 import { formSchema } from "./validations";
-import { Input } from "../../components/Input";
 import { StyledMain } from "./style";
 
 export function Dashboard() {
   const { loading, user, userLogout } = useContext(UserContext);
   const {
     techRegister,
+    techEdit,
+    techDelete,
     registerTechModal,
     openRegisterTechModal,
     closeRegisterTechModal,
+    techID,
+    editTechModal,
+    openEditTechModal,
+    closeEditTechModal,
   } = useContext(TechContext);
 
   const {
@@ -30,16 +34,22 @@ export function Dashboard() {
     resolver: yupResolver(formSchema),
   });
 
+  function submitEditTech(formData) {
+    techEdit(formData, techID);
+  }
+
   return (
     <>
       <Header>
-        <Button
-          onClickFunction={() => {
-            userLogout();
-          }}
-        >
-          Sair
-        </Button>
+        <div>
+          <Button
+            onClickFunction={() => {
+              userLogout();
+            }}
+          >
+            Sair
+          </Button>
+        </div>
       </Header>
       <StyledMain>
         {loading ? (
@@ -49,28 +59,26 @@ export function Dashboard() {
         ) : (
           <>
             {registerTechModal ? (
-              <RegisterTechModal
+              <Modal
                 title={"Cadastrar Tecnologia"}
                 closeFunction={closeRegisterTechModal}
-              >
-                <Form onSubmitFunction={handleSubmit(techRegister)}>
-                  <Input
-                    label="Nome"
-                    id="title"
-                    type="text"
-                    register={register}
-                    placeholder="Nome da Tecnologia"
-                    error={errors?.title?.message}
-                  ></Input>
-                  <label htmlFor="status">Selecionar Status</label>
-                  <select id="status" {...register("status")}>
-                    <option value="Iniciante">Iniciante</option>
-                    <option value="Intermediário">Intermediário</option>
-                    <option value="Avançado">Avançado</option>
-                  </select>
-                  <Button type={"submit"}>Cadastrar Tecnologia</Button>
-                </Form>
-              </RegisterTechModal>
+                register={register}
+                handleSubmit={handleSubmit(techRegister)}
+                error={errors?.title?.message}
+              ></Modal>
+            ) : null}
+
+            {editTechModal ? (
+              <Modal
+                title={"Tecnologia Detalhes"}
+                closeFunction={closeEditTechModal}
+                register={register}
+                handleSubmit={handleSubmit(submitEditTech)}
+                error={errors?.title?.message}
+                onClickFunction={() => {
+                  techDelete(techID);
+                }}
+              ></Modal>
             ) : null}
             <section className="user-info__section">
               <div>
@@ -78,7 +86,6 @@ export function Dashboard() {
                 <p>{user?.course_module}</p>
               </div>
             </section>
-
             <section className="user-techs__section">
               <div>
                 <div>
@@ -87,9 +94,13 @@ export function Dashboard() {
                 </div>
                 <ul>
                   {user?.techs.map(({ id, title, status }) => {
-                    console.log(id);
                     return (
-                      <li key={id}>
+                      <li
+                        key={id}
+                        onClick={() => {
+                          openEditTechModal(id);
+                        }}
+                      >
                         <h2>{title}</h2>
                         <p>{status}</p>
                       </li>
