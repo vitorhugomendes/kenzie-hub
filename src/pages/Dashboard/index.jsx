@@ -1,11 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../providers/UserContext";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
-import { api } from "../../services/api";
 import { StyledMain } from "./style";
+import { Link } from "../../components/Link";
 
 export function Dashboard() {
   const { loading, user, userLogout } = useContext(UserContext);
@@ -28,20 +28,31 @@ export function Dashboard() {
           </section>
         ) : (
           <>
-            <section>
+            <section className="user-info__section">
               <div>
                 <h2>{user?.name}</h2>
                 <p>{user?.course_module}</p>
               </div>
             </section>
 
-            <div>
-              <h2>{"Que pena! Estamos em desenvolvimento :("}</h2>
-              <h3>
-                Nosso time de kenzinhos está trabalhando na aplicação e em breve
-                teremos novidades!
-              </h3>
-            </div>
+            <section className="user-techs__section">
+              <div>
+                <div>
+                  <h3>Tecnologias</h3>
+                  <button>+</button>
+                </div>
+                <ul>
+                  {user?.techs.map(({ title, status }) => {
+                    return (
+                      <li>
+                        <h2>{title}</h2>
+                        <p>{status}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </section>
           </>
         )}
       </StyledMain>

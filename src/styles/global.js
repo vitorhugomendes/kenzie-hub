@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     --negative:#E83F5B;
 
     --font-size-16px: 1rem;
+    --font-size-14px: .875rem;
     --font-size-12px: .75rem;
 }
 
