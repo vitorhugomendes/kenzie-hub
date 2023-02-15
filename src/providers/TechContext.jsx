@@ -61,8 +61,11 @@ export function TechProvider({ children }) {
         },
       });
       toast.success("Tecnologia editada com sucesso");
+      const newTechsList = user.techs.filter(({ id }) => {
+        return id != techID;
+      });
+      setUser({ ...user, techs: [...newTechsList, response.data] });
       closeEditTechModal();
-      console.log(response);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -79,6 +82,10 @@ export function TechProvider({ children }) {
         },
       });
       toast.success("Tecnologia deletada com sucesso");
+      const newTechsList = user.techs.filter(({ id }) => {
+        return id != techID;
+      });
+      setUser({ ...user, techs: newTechsList });
       closeEditTechModal();
     } catch (error) {
       toast.error("Erro!");
