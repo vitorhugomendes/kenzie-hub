@@ -14,7 +14,7 @@ import { formSchema } from "./validations";
 import { Input } from "../../components/Input";
 
 export function Register() {
-  const { navigate } = useContext(UserContext);
+  const { userRegister } = useContext(UserContext);
 
   const {
     register,
@@ -23,16 +23,6 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
-  async function userRegister(data) {
-    try {
-      const response = await api.post("/users", data);
-      toast("Usuário cadastrado com sucesso");
-      navigate("/");
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  }
 
   return (
     <>

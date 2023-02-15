@@ -1,5 +1,4 @@
-import { createContext, useEffect } from "react";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,10 +15,41 @@ export function UserProvider({ children }) {
 
   const navigate = useNavigate();
 
+  async function userLogin(formData) {
+    try {
+      setLoading(true);
+      const response = await api.post("/sessions", formData);
+      setUser(response.data.user);
+      window.localStorage.setItem(
+        "KenzieHub@TOKEN",
+        JSON.stringify(response.data.token)
+      );
+      window.localStorage.setItem(
+        "KenzieHub@USERID",
+        JSON.stringify(response.data.user.id)
+      );
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   function userLogout() {
     window.localStorage.clear();
     setUser(null);
     navigate("/");
+  }
+
+  async function userRegister(formData) {
+    try {
+      const response = await api.post("/users", formData);
+      toast("Usuário cadastrado com sucesso");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
 
   useEffect(() => {
@@ -50,8 +80,11 @@ export function UserProvider({ children }) {
         user,
         setUser,
         navigate,
+        userLogin,
         userLogout,
+        userRegister,
         userID,
+        userToken,
       }}
     >
       {children}

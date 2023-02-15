@@ -1,3 +1,4 @@
+import { Children } from "react";
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
@@ -16,6 +17,17 @@ export const StyledButton = styled.button`
     border: 1px solid var(--grey-2);
   }
 
+  ${({ children }) => {
+    if (children == "+") {
+      return css`
+        padding: 0;
+        font-weight: 900;
+        font-size: 22px;
+        width: 40px;
+        height: 40px;
+      `;
+    }
+  }}
   ${({ type }) => {
     if (type) {
       return css`

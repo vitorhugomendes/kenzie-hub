@@ -14,7 +14,7 @@ import { Button } from "../../components/Button";
 import { Link } from "../../components/Link";
 
 export function Login() {
-  const { loading, setLoading, setUser, navigate } = useContext(UserContext);
+  const { loading, userLogin } = useContext(UserContext);
 
   const {
     register,
@@ -23,27 +23,6 @@ export function Login() {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-
-  async function userLogin(data) {
-    try {
-      setLoading(true);
-      const response = await api.post("/sessions", data);
-      setUser(response.data.user);
-      window.localStorage.setItem(
-        "KenzieHub@TOKEN",
-        JSON.stringify(response.data.token)
-      );
-      window.localStorage.setItem(
-        "KenzieHub@USERID",
-        JSON.stringify(response.data.user.id)
-      );
-      navigate("/dashboard");
-    } catch (error) {
-      toast.error(error.response.data.message);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   return (
     <>
