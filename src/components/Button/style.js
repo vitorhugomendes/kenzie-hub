@@ -1,4 +1,3 @@
-import { Children } from "react";
 import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
@@ -27,6 +26,16 @@ export const StyledButton = styled.button`
         font-size: 22px;
         width: 40px;
         height: 40px;
+      `;
+    } else if (children == "Excluir") {
+      return css`
+        background-color: var(--grey-1);
+        border: 1px solid var(--grey-1);
+
+        :hover {
+          background-color: var(--grey-2);
+          border: 1px solid var(--grey-2);
+        }
       `;
     }
   }}

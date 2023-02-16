@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { UserContext } from "./UserContext";
 import { api } from "../services/api";
-import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
@@ -10,7 +9,9 @@ export const TechContext = createContext({});
 export function TechProvider({ children }) {
   const { user, setUser, userToken, setLoading } = useContext(UserContext);
 
-  const [techID, setTechID] = useState("null");
+  const [techID, setTechID] = useState(null);
+
+  const [techTitle, setTechTitle] = useState(null);
 
   const [registerTechModal, setRegisterTechModal] = useState(false);
 
@@ -32,6 +33,7 @@ export function TechProvider({ children }) {
   function closeEditTechModal() {
     setEditTechModal(null);
     setTechID(null);
+    setTechTitle(null);
   }
 
   async function techRegister(formData) {
@@ -61,10 +63,14 @@ export function TechProvider({ children }) {
         },
       });
       toast.success("Tecnologia editada com sucesso");
-      const newTechsList = user.techs.filter(({ id }) => {
-        return id != techID;
+      const newTechsList = user.techs.map((tech) => {
+        if (tech.id == techID) {
+          return { ...user.techs, ...response.data };
+        } else {
+          return tech;
+        }
       });
-      setUser({ ...user, techs: [...newTechsList, response.data] });
+      setUser({ ...user, techs: newTechsList });
       closeEditTechModal();
     } catch (error) {
       toast.error(error.response.data.message);
@@ -104,6 +110,8 @@ export function TechProvider({ children }) {
         openRegisterTechModal,
         closeRegisterTechModal,
         techID,
+        techTitle,
+        setTechTitle,
         editTechModal,
         openEditTechModal,
         closeEditTechModal,

@@ -1,14 +1,26 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledModal = styled.div`
   display: flex;
   flex-direction: column;
-  position: fixed;
-  align-self: center;
+  align-items: center;
 
-  background: var(--grey-3);
-  box-shadow: 0px 3.20867px 32.0867px -8.02168px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .modal__container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    align-self: center;
+
+    background: var(--grey-3);
+    border-radius: 4px;
+  }
+
   .modal-header__container {
     display: flex;
     justify-content: space-between;
@@ -43,9 +55,10 @@ export const StyledModal = styled.div`
 
   .modal-buttons__container {
     display: flex;
-  }
-
-  .modal-buttons__container > button {
+    gap: 1rem;
     width: 100%;
+  }
+  .modal-buttons__container > button {
+    width: fit-content;
   }
 `;

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../providers/UserContext";
 import { TechContext } from "../../providers/TechContext";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +21,8 @@ export function Dashboard() {
     openRegisterTechModal,
     closeRegisterTechModal,
     techID,
+    techTitle,
+    setTechTitle,
     editTechModal,
     openEditTechModal,
     closeEditTechModal,
@@ -29,10 +31,18 @@ export function Dashboard() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
+    defaultValues: { title: techTitle },
     resolver: yupResolver(formSchema),
   });
+
+  useEffect(() => {
+    reset({
+      title: techTitle,
+    });
+  }, [techTitle]);
 
   function submitEditTech(formData) {
     techEdit(formData, techID);
@@ -78,6 +88,7 @@ export function Dashboard() {
                 onClickFunction={() => {
                   techDelete(techID);
                 }}
+                disabled={true}
               ></Modal>
             ) : null}
             <section className="user-info__section">
@@ -98,6 +109,7 @@ export function Dashboard() {
                       <li
                         key={id}
                         onClick={() => {
+                          setTechTitle(title);
                           openEditTechModal(id);
                         }}
                       >
