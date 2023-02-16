@@ -99,7 +99,8 @@ export const StyledMain = styled.main`
       justify-content: space-between;
     }
 
-    .user-info__section > div {
+    .user-info__section > div,
+    .user-techs__section > div {
       margin: 0 100px;
     }
   }
